@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { LoginForm } from "@/components/auth/login-form";
+import { LoginForm } from "./login-form";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface LoginButtonProps {
@@ -23,17 +23,19 @@ export const LoginButton = ({
   };
 
   if (mode === "modal") {
-    return <span>TODO: Implement modal</span>;
+    return (
+      <Dialog>
+        <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+        <DialogContent className="p-0 w-auto bg-transparent border-none">
+          <LoginForm />
+        </DialogContent>
+      </Dialog>
+    );
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild={asChild}>
-        {children}
-      </DialogTrigger>
-      <DialogContent className="p-0 w-auto bg-transparent border-none">
-        <LoginForm />
-      </DialogContent>
-    </Dialog>
+    <span onClick={onClick} className="cursor-pointer">
+      {children}
+    </span>
   );
 };
